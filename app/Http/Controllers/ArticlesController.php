@@ -43,4 +43,7 @@ class ArticlesController extends Controller
         return redirect('articles');
         // return $input;
     }
+    public function hello(){
+        return view('articles.test');
+    }
 }

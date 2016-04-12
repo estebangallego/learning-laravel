@@ -20,12 +20,14 @@ Route::get('contact', 'WelcomeController@contact');
 Route::get('about', 'PagesController@about');
 
 // Article routes
-Route::get('articles', 'ArticlesController@index');
-Route::get('articles/create', 'ArticlesController@create');
-Route::get('articles/test', 'ArticlesController@hello');
-Route::get('articles/{id}', 'ArticlesController@show');
-Route::post('articles', 'ArticlesController@store');
 
+Route::group(['middleware' =>['web']], function(){
+	Route::get('articles', 'ArticlesController@index');
+	Route::get('articles/create', 'ArticlesController@create');
+	Route::get('test', 'ArticlesController@hello');
+	Route::get('articles/{id}', 'ArticlesController@show');
+	Route::post('articles', 'ArticlesController@store');
+});
 
 
 

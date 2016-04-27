@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\Http\Requests;
+use App\Http\Requests\ArticleRequest;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 
@@ -46,17 +47,29 @@ class ArticlesController extends Controller
         return view('articles.create');
     }
 
-    // Save article
-    public function store(Requests\CreateArticleRequest $request)
+    // Save a new article
+    public function store(Requests\ArticleRequest $request)
     {
-       // form validation
-        
+       // Form validation
 
         // $input = Request::All();
         Article::create($request->all());
         return redirect('articles');
         // return $input;
         // $input = Request::get('title');
+    }
+
+    public function edit($id)
+    {
+        $article = Article::findOrFail($id);
+        return view('articles.edit', compact('article'));
+    }
+
+    public function update($id, ArticleRequest $request)
+    {
+        $article = Article::findOrFail($id);
+        $article->update($request->all());
+        return redirect('articles');
     }
 
     // Test

@@ -8,25 +8,30 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-    //
+    //Fillable fields for an Article
     protected $fillable = [
     	'title',
     	'body',
         'meta_title',
     	'meta_description',
-    	'published_at'
+    	'published_at',
+        'user_id'  //Temporary
     ];
-
+    // Additional fields to treads as Carbon instances
     protected $dates = ['published_at'];
 
+    // Scope queries to articles that have been published.
     public function scopePublished($query)
     {
     	$query->where('published_at', '<=', Carbon::now());
     }
+    // Set published_at attribute.
     public function scopeUnpublished($query)
     {
     	$query->where('published_at', '>', Carbon::now());
     }
+
+    // Set the published_at attribute.
 	public function setPublishedAtAttribute($date)
 	{
 
@@ -40,4 +45,13 @@ class Article extends Model
 		}
 
 	}
+
+    /**
+     * Article is owned by one user.
+     * @return Illuminate\Database\Eloquent\Relations\BellongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

@@ -19,6 +19,7 @@ class ArticlesController extends Controller
     
     public function index()
     {
+
     	$articles = Article::latest('published_at', 'desc')->published()->get();
     	// return $articles;
     	return view('articles.index', compact('articles'));
@@ -50,10 +51,13 @@ class ArticlesController extends Controller
     // Save a new article
     public function store(Requests\ArticleRequest $request)
     {
-       // Form validation
-
+        // Form validation
+            
         // $input = Request::All();
-        Article::create($request->all());
+        $article = new Article($request->all()); //user_id
+
+        \Auth::user()->articles()->save($article);
+
         return redirect('articles');
         // return $input;
         // $input = Request::get('title');

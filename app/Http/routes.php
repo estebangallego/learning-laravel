@@ -15,15 +15,10 @@
 //     return view('welcome');
 // });
 
-Route::get('/', 'WelcomeController@index');
-Route::get('contact', 'WelcomeController@contact');
-Route::get('about', 'PagesController@about');
+
 
 // Article routes
 
-Route::group(['middleware' =>['web']], function(){
-	Route::resource('articles', 'ArticlesController');
-});
 
 // Route::group(['middleware' =>['web']], function(){
 // 	Route::get('articles', 'ArticlesController@index');
@@ -33,8 +28,6 @@ Route::group(['middleware' =>['web']], function(){
 // 	Route::post('articles', 'ArticlesController@store');
 // 	Route::get('articles/{id}/edit', 'ArticlesController@edit');
 // });
-
-
 
 Route::get('api', function(){
 	return 'hello';
@@ -54,6 +47,14 @@ Route::get('api', function(){
 
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
-
     Route::get('/home', 'HomeController@index');
+    Route::resource('articles', 'ArticlesController');
+    Route::get('/', 'WelcomeController@index');
+	Route::get('contact', 'WelcomeController@contact');
+	Route::get('about', 'PagesController@about');
+
+	Route::get('foo', ['middleware' => ['manager'], function () 
+	{
+    	return 'This page may only be viewed by managers.';
+	}]);
 });

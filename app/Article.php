@@ -15,7 +15,7 @@ class Article extends Model
         'meta_title',
     	'meta_description',
     	'published_at',
-        'user_id'  //Temporary
+        
     ];
     // Additional fields to treads as Carbon instances
     protected $dates = ['published_at'];

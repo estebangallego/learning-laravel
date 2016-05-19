@@ -17,6 +17,11 @@ class ArticlesController extends Controller
     // Show all articles
     // @return Response
     
+    public function __construct()
+    {
+        $this->middleware('auth', ['only' => 'create']);
+    }
+
     public function index()
     {
 
@@ -45,6 +50,11 @@ class ArticlesController extends Controller
     // Show the page to create a new article
     public function create(){
         // dd('show');
+        // redirect if user is not login
+        // if (\Auth::guest())
+        // {
+        //     return redirect('articles');
+        // }
         return view('articles.create');
     }
 

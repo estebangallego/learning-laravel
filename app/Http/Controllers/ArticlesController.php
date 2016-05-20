@@ -19,7 +19,7 @@ class ArticlesController extends Controller
     
     public function __construct()
     {
-        $this->middleware('auth', ['only' => 'create']);
+        $this->middleware('auth', ['only' => ['create', 'edit']]);
     }
 
     public function index()
@@ -82,6 +82,7 @@ class ArticlesController extends Controller
     public function update(Article $article, ArticleRequest $request)
     {
         // $article = Article::findOrFail($id);
+        
         $article->update($request->all());
         return redirect('articles');
     }

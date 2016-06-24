@@ -1,0 +1,131 @@
+## php artisan
+---------------------------------------------------------
+## migrations
+Migrations will map the database (Version control for database)
+Syntax to create a new migration = php artisan make:migration create_comments_table --create="comments"
+#We can add a new column to the table running another migration
+Syntax -> php artisan make:migration add_user_id_to_comments_table --table="comments"
+->make sure to add the ->dropColomn('user_id');
+useful commands
+php artisan migrate:rollback
+php artisan migrate:reset
+php artiisa migrate
+
+"to drop a column laravel require a package"
+composer doctrine/dbal
+---------------------------------------------------------
+## Eloquent (Models)
+Models should be singular, so if my table is comments, the model should be name Comment
+Syntax -> php artisan make:model MODEL
+tinker can be use to test the database = php artisan tinker 
+with tinker I can add data, defining a variable for the model and inserting the data: 
+-> $comment = new App\Comment
+-> $comment->comment_body = 'This is a comment'; (it can also be use to update)
+timestamp command is Carbon\Carbon::now();
+
+Useful method $comment->toArray();
+Insert the data:
+$comment->save();
+
+using tinker to view the data:
+App\Comment::all()->toArray();
+
+Find comment with id x
+$comment = App\Comment::find(1);
+
+Find where
+$comment = App\Comment::where('comment_body', 'This is a comment')->get();
+
+get the first result
+$comment = App\Comment::first('comment_body', 'This is a comment')->get();
+
+## Create users
+>>> $user = new App\User;
+>>> $user->username = 'esteban';
+=> "esteban"
+>>> $user->email = 'egallego00@gmail.com';
+=> "egallego00@gmail.com"
+>>> $user->password = bcrypt('password');
+=> "$2y$10$bb0rsg2LPa0EDe7qMxyjjOKcTW0jKJmllT7lJklkea7/Jj4YMVlFS"
+>>> $user->save();
+=> true
+>>> App\User::first()-toArray();
+>>> App\User::first()->toArray();
+=> [
+     "id" => 1,
+     "username" => "esteban",
+     "email" => "egallego00@gmail.com",
+     "created_at" => "2016-04-29 04:41:30",
+     "updated_at" => "2016-04-29 04:41:30",
+   ]
+----
+Create full data sheet, pass in an array
+$comment = App\Comment::create(['comment_body' => 'Hello world', 'user_id'=> 1, 'published_at' => Carbon\Carbon::now()]);
+MassAssaigment protection
+ //Assign protected fields in the Model
+    protected $fillable = [
+    	'comment_body',
+    	'published_at',
+    	'user_id'
+    ];
+----
+Update
+$comment = App\Comment::find(2);
+$comment-toArray();
+$comment->comment_body = 'Updated comment';
+$comment->save();
+
+Update method
+$comment = App\Comment::find(2);
+$comment-toArray();
+$comment->update(['comment_body' => 'Updated again']);
+
+
+----------
+var dump in views
+dd($article);
+
+------
+Forms
+Install package to make easier the forms creation
+https://laravelcollective.com/docs/5.2/html
+
+to install and set up a package provider
+1. register the service in config/app@providers
+2. register the aliases
+
+
+php artisan route:clear
+php artisan cache:clear
+
+
+validation
+php artisan make:request
+
+public function store(Requests\CreateArticleRequest $request)
+
+   $this->validate($request, [
+       'title' => 'required|min:3',
+       'body' => 'required',
+       'meta_title' => 'required',
+       'meta_description' => 'required',
+       'published_at' => 'required|date'
+   ]);
+
+
+--------
+
+Mid course
+* eloquent model
+** 
+*
+
+
+
+Packages
+https://laravelcollective.com/docs/5.2/html
+Carbon // Dates
+
+node install
+gulp
+gulp watch

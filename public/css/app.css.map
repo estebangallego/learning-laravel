@@ -1,1 +1,1 @@
-{"version":3,"sources":["pages/home.scss"],"names":[],"mappings":"AAAA;EACC,WAAU,EACV","file":"app.css","sourcesContent":[".home {\n\tcolor:red;\n}"],"sourceRoot":"/source/"}
+{"version":3,"sources":["pages/home.scss","app.scss"],"names":[],"mappings":"AAAA;EACC,WAAU,EACV;;ACDD,yEAAyE","file":"app.css","sourcesContent":[".home {\n\tcolor:red;\n}","@import 'pages/home';\n/* @import \"node_modules/bootstrap-sass/assets/stylesheets/bootstrap\"; */\n\n\n\n"],"sourceRoot":"/source/"}
